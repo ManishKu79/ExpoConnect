@@ -52,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     Future.delayed(const Duration(seconds: 3), () {
       if (mounted) {
-        context.go(RouteNames.login);
+        context.go(RouteNames.onboarding);
       }
     });
   }
@@ -75,7 +75,6 @@ class _SplashScreenState extends State<SplashScreen>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Premium Logo with animation
                 AnimatedBuilder(
                   animation: _controller,
                   builder: (context, child) {
@@ -110,7 +109,6 @@ class _SplashScreenState extends State<SplashScreen>
                 
                 const SizedBox(height: 32),
                 
-                // App Name
                 AnimatedBuilder(
                   animation: _controller,
                   builder: (context, child) {
@@ -159,7 +157,6 @@ class _SplashScreenState extends State<SplashScreen>
                 
                 const SizedBox(height: 60),
                 
-                // Loading
                 SizedBox(
                   width: 24,
                   height: 24,

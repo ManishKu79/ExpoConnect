@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../providers/auth_providers.dart';
 import '../../../../routes/route_names.dart';
 import '../../../../theme/colors.dart';
 import '../../../../theme/typography.dart';
 
-class RegisterScreen extends StatefulWidget {
+class RegisterScreen extends ConsumerStatefulWidget {
   const RegisterScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  ConsumerState<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  bool _isLoading = false;
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
   bool _agreeTerms = false;
@@ -38,6 +39,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(authProvider);
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -575,7 +578,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ],
                         ),
                         child: ElevatedButton(
-                          onPressed: _isLoading ? null : _handleRegister,
+                          onPressed: authState.isLoading ? null : _handleRegister,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.transparent,
                             shadowColor: Colors.transparent,
@@ -584,7 +587,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                             elevation: 0,
                           ),
-                          child: _isLoading
+                          child: authState.isLoading
                               ? const SizedBox(
                                   height: 24,
                                   width: 24,
@@ -676,11 +679,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
     
     if (_formKey.currentState!.validate()) {
-      setState(() => _isLoading = true);
-      await Future.delayed(const Duration(seconds: 2));
-      if (mounted) {
-        setState(() => _isLoading = false);
-        context.go(RouteNames.home);
+      try {
+        await ref.read(authProvider.notifier).register(
+          name: _nameController.text.trim(),
+          email: _emailController.text.trim(),
+          password: _passwordController.text,
+          confirmPassword: _confirmPasswordController.text,
+        );
+        if (mounted) {
+          context.go(RouteNames.home);
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(e.toString()),
+              backgroundColor: AppColors.error,
+              duration: const Duration(seconds: 3),
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          );
+        }
       }
     }
   }
