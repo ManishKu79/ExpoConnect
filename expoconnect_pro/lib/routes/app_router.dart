@@ -1,0 +1,38 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import '../features/auth/presentation/screens/splash_screen.dart';
+import '../features/auth/presentation/screens/login_screen.dart';
+import '../features/auth/presentation/screens/register_screen.dart';
+import '../features/visitor/presentation/screens/home_screen.dart';
+import 'route_names.dart';
+
+final appRouter = GoRouter(
+  initialLocation: RouteNames.splash,
+  routes: [
+    GoRoute(
+      path: RouteNames.splash,
+      name: 'splash',
+      builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.onboarding,
+      name: 'onboarding',
+      builder: (context, state) => const Placeholder(),
+    ),
+    GoRoute(
+      path: RouteNames.login,
+      name: 'login',
+      builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.register,
+      name: 'register',
+      builder: (context, state) => const RegisterScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.home,
+      name: 'home',
+      builder: (context, state) => const HomeScreen(),
+    ),
+  ],
+);
