@@ -20,7 +20,7 @@ class AppColors {
   static const Color tertiary = Color(0xFF2EC4B6);
   static const Color tertiaryLight = Color(0xFF7DE2D6);
   
-  // Gradients for hero sections
+  // Gradients
   static const LinearGradient heroGradient = LinearGradient(
     colors: [Color(0xFF1A0F3A), Color(0xFF3A2A6A)],
     begin: Alignment.topLeft,
@@ -29,6 +29,12 @@ class AppColors {
   
   static const LinearGradient premiumGradient = LinearGradient(
     colors: [Color(0xFFE8C97A), Color(0xFFFF6B6B)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+  
+  static const LinearGradient primaryGradient = LinearGradient(
+    colors: [Color(0xFF1A0F3A), Color(0xFF3A2A6A)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
@@ -45,7 +51,7 @@ class AppColors {
   static const Color surfaceAlt = Color(0xFFF0EDE8);
   static const Color cardBg = Color(0xFFFFFFFF);
   
-  // Text Colors - Rich & Readable
+  // Text Colors
   static const Color textPrimary = Color(0xFF1A0F3A);
   static const Color textSecondary = Color(0xFF6B5B7A);
   static const Color textTertiary = Color(0xFF9B8BA8);
@@ -66,6 +72,7 @@ class AppColors {
   static const Color border = Color(0xFFE5E0DA);
   static const Color borderLight = Color(0xFFF0EDE8);
   static const Color borderFocus = Color(0xFFE8C97A);
+  static const Color darkBorder = Color(0xFF2A2245);
   
   // Shadows
   static const Color shadowLight = Color(0x0D1A0F3A);
@@ -81,5 +88,4 @@ class AppColors {
   static const Color darkTextPrimary = Color(0xFFF5F0FF);
   static const Color darkTextSecondary = Color(0xFFB5A8C8);
   static const Color darkTextTertiary = Color(0xFF7A6A90);
-  static const Color darkBorder = Color(0xFF2A2245);
 }

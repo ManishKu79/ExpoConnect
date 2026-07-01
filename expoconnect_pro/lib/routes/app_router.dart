@@ -7,11 +7,20 @@ import '../features/auth/presentation/screens/register_screen.dart';
 import '../features/auth/presentation/screens/forgot_password_screen.dart';
 import '../features/auth/presentation/screens/verify_email_screen.dart';
 import '../features/visitor/presentation/screens/home_screen.dart';
+import '../features/visitor/presentation/screens/expo_listing_screen.dart';
+import '../features/visitor/presentation/screens/expo_details_screen.dart';
+import '../features/visitor/presentation/screens/networking_screen.dart';
+import '../features/visitor/presentation/screens/profile_screen.dart';
+import '../features/visitor/presentation/screens/notifications_screen.dart';
+import '../features/visitor/presentation/screens/qr_pass_screen.dart';
+import '../features/visitor/presentation/screens/settings_screen.dart';
+import '../features/visitor/presentation/screens/chat_screen.dart';
 import 'route_names.dart';
 
 final appRouter = GoRouter(
   initialLocation: RouteNames.splash,
   routes: [
+    // Auth Routes
     GoRoute(
       path: RouteNames.splash,
       name: 'splash',
@@ -45,10 +54,55 @@ final appRouter = GoRouter(
         return VerifyEmailScreen(email: email);
       },
     ),
+    
+    // Visitor Routes
     GoRoute(
       path: RouteNames.home,
       name: 'home',
       builder: (context, state) => const HomeScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.expoListing,
+      name: 'expo-listing',
+      builder: (context, state) => const ExpoListingScreen(),
+    ),
+    GoRoute(
+      path: '${RouteNames.expoDetails}/:id',
+      name: 'expo-details',
+      builder: (context, state) {
+        final id = state.pathParameters['id'] ?? '';
+        return ExpoDetailsScreen(expoId: id);
+      },
+    ),
+    GoRoute(
+      path: RouteNames.networking,
+      name: 'networking',
+      builder: (context, state) => const NetworkingScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.profile,
+      name: 'profile',
+      builder: (context, state) => const ProfileScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.notifications,
+      name: 'notifications',
+      builder: (context, state) => const NotificationsScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.qrPass,
+      name: 'qr-pass',
+      builder: (context, state) => const QRPassScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.settings,
+      name: 'settings',
+      builder: (context, state) => const SettingsScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.chat,
+      name: 'chat',
+      builder: (context, state) => const ChatScreen(),
     ),
   ],
 );
