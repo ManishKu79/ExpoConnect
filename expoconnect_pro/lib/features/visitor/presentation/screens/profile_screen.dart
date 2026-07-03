@@ -29,15 +29,18 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
-              
+
+              // Profile Header
               user != null ? _buildProfileHeader(user) : const SizedBox(),
-              
+
               const SizedBox(height: 24),
-              
+
+              // Quick Actions
               _buildQuickActions(),
-              
+
               const SizedBox(height: 24),
-              
+
+              // Stats Cards
               savedExhibitors.when(
                 data: (saved) {
                   return _buildStats(saved.length);
@@ -47,9 +50,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 ),
                 error: (error, stack) => const SizedBox(),
               ),
-              
+
               const SizedBox(height: 24),
-              
+
+              // Menu Items
               _buildMenuItem(
                 icon: Icons.qr_code_scanner_outlined,
                 title: 'My QR Pass',
@@ -86,9 +90,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 title: 'Help & Support',
                 onTap: () {},
               ),
-              
+              _buildMenuItem(
+                icon: Icons.switch_account_rounded,
+                title: 'Switch to Exhibitor Mode',
+                onTap: () {
+                  context.go(RouteNames.exhibitorDashboard);
+                },
+              ),
+
               const SizedBox(height: 24),
-              
+
+              // Logout Button
               SizedBox(
                 width: double.infinity,
                 height: 56,
@@ -109,7 +121,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   ),
                 ),
               ),
-              
+
               const SizedBox(height: 32),
             ],
           ),
@@ -133,6 +145,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         children: [
           Row(
             children: [
+              // Avatar
               Container(
                 width: 72,
                 height: 72,
@@ -198,6 +211,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             ],
           ),
           const SizedBox(height: 16),
+          // Stats Row
           Row(
             children: [
               Expanded(
@@ -452,7 +466,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         ),
         onTap: onTap,
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-        // Remove tileColor - let the parent Container handle background
       ),
     );
   }

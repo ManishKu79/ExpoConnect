@@ -15,6 +15,8 @@ import '../features/visitor/presentation/screens/notifications_screen.dart';
 import '../features/visitor/presentation/screens/qr_pass_screen.dart';
 import '../features/visitor/presentation/screens/settings_screen.dart';
 import '../features/visitor/presentation/screens/chat_screen.dart';
+import '../features/exhibitor/presentation/screens/dashboard_screen.dart';
+import '../features/exhibitor/presentation/screens/lead_dashboard_screen.dart';
 import 'route_names.dart';
 
 final appRouter = GoRouter(
@@ -54,7 +56,6 @@ final appRouter = GoRouter(
         return VerifyEmailScreen(email: email);
       },
     ),
-    
     // Visitor Routes
     GoRoute(
       path: RouteNames.home,
@@ -103,6 +104,17 @@ final appRouter = GoRouter(
       path: RouteNames.chat,
       name: 'chat',
       builder: (context, state) => const ChatScreen(),
+    ),
+    // Exhibitor Routes
+    GoRoute(
+      path: RouteNames.exhibitorDashboard,
+      name: 'exhibitor-dashboard',
+      builder: (context, state) => const DashboardScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.leadDashboard,
+      name: 'lead-dashboard',
+      builder: (context, state) => const LeadDashboardScreen(),
     ),
   ],
 );
