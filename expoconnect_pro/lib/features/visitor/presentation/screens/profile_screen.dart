@@ -105,13 +105,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 },
               ),
               // Switch to Organizer Mode
-              _buildMenuItem(
-                icon: Icons.switch_account_rounded,
-                title: 'Switch to Organizer Mode',
-                onTap: () {
-                  context.go(RouteNames.organizerDashboard);
-                },
-              ),
+              // _buildMenuItem(
+              //   icon: Icons.switch_account_rounded,
+              //   title: 'Switch to Organizer Mode',
+              //   onTap: () {
+              //     context.go(RouteNames.organizerDashboard);
+              //   },
+              // ),
 
               const SizedBox(height: 24),
 

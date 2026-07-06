@@ -27,7 +27,6 @@ class RouteNames {
   static const String analytics = '/exhibitor/analytics';
   static const String reports = '/exhibitor/reports';
 
-
   // Organizer
   static const String organizerDashboard = '/organizer/dashboard';
   static const String expoManagement = '/organizer/expo-management';
