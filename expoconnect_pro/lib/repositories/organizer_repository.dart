@@ -331,7 +331,6 @@ class OrganizerRepository {
 
   Future<OrganizerAnalytics> getAnalyticsByExpo(String expoId) async {
     await Future.delayed(const Duration(milliseconds: 600));
-    // In a real app, filter by expoId
     return _mockAnalytics;
   }
 }

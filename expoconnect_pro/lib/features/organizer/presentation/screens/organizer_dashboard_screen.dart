@@ -195,33 +195,25 @@ class _OrganizerDashboardScreenState extends ConsumerState<OrganizerDashboardScr
                 _buildQuickAction(
                   icon: Icons.add_rounded,
                   label: 'Create Expo',
-                  onTap: () {
-                    // Navigate to create expo
-                  },
+                  onTap: () {},
                 ),
                 const SizedBox(width: 12),
                 _buildQuickAction(
                   icon: Icons.people_rounded,
                   label: 'Visitors',
-                  onTap: () {
-                    context.go(RouteNames.visitorManagement);
-                  },
+                  onTap: () {},
                 ),
                 const SizedBox(width: 12),
                 _buildQuickAction(
                   icon: Icons.storefront_rounded,
                   label: 'Stalls',
-                  onTap: () {
-                    context.go(RouteNames.stallAllocation);
-                  },
+                  onTap: () {},
                 ),
                 const SizedBox(width: 12),
                 _buildQuickAction(
                   icon: Icons.analytics_rounded,
                   label: 'Analytics',
-                  onTap: () {
-                    context.go(RouteNames.liveAnalytics);
-                  },
+                  onTap: () {},
                 ),
               ],
             ),
@@ -245,9 +237,7 @@ class _OrganizerDashboardScreenState extends ConsumerState<OrganizerDashboardScr
                           style: AppTypography.headline4,
                         ),
                         TextButton(
-                          onPressed: () {
-                            context.go(RouteNames.expoManagement);
-                          },
+                          onPressed: () {},
                           child: Text(
                             'See All',
                             style: AppTypography.labelMedium.copyWith(

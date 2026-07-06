@@ -5,7 +5,7 @@ import '../../../../providers/organizer_providers.dart';
 import '../../../../theme/colors.dart';
 import '../../../../theme/typography.dart';
 import '../../../../routes/route_names.dart';
-import '../../models/stall_allocation.dart'; // ADD THIS IMPORT
+import '../../models/stall_allocation.dart';
 
 class StallAllocationScreen extends ConsumerStatefulWidget {
   const StallAllocationScreen({super.key});

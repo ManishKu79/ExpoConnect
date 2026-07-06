@@ -5,7 +5,7 @@ import '../../../../providers/organizer_providers.dart';
 import '../../../../theme/colors.dart';
 import '../../../../theme/typography.dart';
 import '../../../../routes/route_names.dart';
-import '../../models/organizer_expo.dart'; // ADD THIS IMPORT
+import '../../models/organizer_expo.dart';
 
 class ExpoManagementScreen extends ConsumerStatefulWidget {
   const ExpoManagementScreen({super.key});

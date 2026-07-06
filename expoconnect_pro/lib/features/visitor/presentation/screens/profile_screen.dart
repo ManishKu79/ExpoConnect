@@ -90,12 +90,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 title: 'Help & Support',
                 onTap: () {},
               ),
+              
               // Divider
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 8),
                 height: 1,
                 color: AppColors.border,
               ),
+              
               // Switch to Exhibitor Mode
               _buildMenuItem(
                 icon: Icons.switch_account_rounded,
@@ -104,14 +106,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   context.go(RouteNames.exhibitorDashboard);
                 },
               ),
+              
               // Switch to Organizer Mode
-              // _buildMenuItem(
-              //   icon: Icons.switch_account_rounded,
-              //   title: 'Switch to Organizer Mode',
-              //   onTap: () {
-              //     context.go(RouteNames.organizerDashboard);
-              //   },
-              // ),
+              _buildMenuItem(
+                icon: Icons.switch_account_rounded,
+                title: 'Switch to Organizer Mode',
+                onTap: () {
+                  context.go(RouteNames.organizerDashboard);
+                },
+              ),
 
               const SizedBox(height: 24),
 

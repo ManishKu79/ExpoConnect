@@ -17,11 +17,11 @@ import '../features/visitor/presentation/screens/settings_screen.dart';
 import '../features/visitor/presentation/screens/chat_screen.dart';
 import '../features/exhibitor/presentation/screens/dashboard_screen.dart';
 import '../features/exhibitor/presentation/screens/lead_dashboard_screen.dart';
-// import '../features/organizer/presentation/screens/organizer_dashboard_screen.dart'; // Temporarily commented
-// import '../features/organizer/presentation/screens/visitor_management_screen.dart'; // Temporarily commented
-// import '../features/organizer/presentation/screens/stall_allocation_screen.dart'; // Temporarily commented
-// import '../features/organizer/presentation/screens/live_analytics_screen.dart'; // Temporarily commented
-// import '../features/organizer/presentation/screens/expo_management_screen.dart'; // Temporarily commented
+import '../features/organizer/presentation/screens/organizer_dashboard_screen.dart';
+import '../features/organizer/presentation/screens/visitor_management_screen.dart';
+import '../features/organizer/presentation/screens/stall_allocation_screen.dart';
+import '../features/organizer/presentation/screens/live_analytics_screen.dart';
+import '../features/organizer/presentation/screens/expo_management_screen.dart';
 import 'route_names.dart';
 
 final appRouter = GoRouter(
@@ -121,8 +121,7 @@ final appRouter = GoRouter(
       name: 'lead-dashboard',
       builder: (context, state) => const LeadDashboardScreen(),
     ),
-    // Organizer Routes - Temporarily removed until files are created
-    /*
+    // Organizer Routes
     GoRoute(
       path: RouteNames.organizerDashboard,
       name: 'organizer-dashboard',
@@ -148,6 +147,5 @@ final appRouter = GoRouter(
       name: 'expo-management',
       builder: (context, state) => const ExpoManagementScreen(),
     ),
-    */
   ],
 );
