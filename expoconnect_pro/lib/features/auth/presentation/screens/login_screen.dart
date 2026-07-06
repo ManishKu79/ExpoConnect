@@ -17,7 +17,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _isLoading = false;
   bool _obscurePassword = true;
   bool _isEmailFocused = false;
   bool _isPasswordFocused = false;
@@ -53,7 +52,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               children: [
                 const SizedBox(height: 40),
                 
-                // Brand Row
                 Row(
                   children: [
                     Container(
@@ -108,7 +106,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 
                 const SizedBox(height: 50),
                 
-                // Hero Section
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -131,13 +128,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 
                 const SizedBox(height: 40),
                 
-                // Form
                 Form(
                   key: _formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Email
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -208,9 +203,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                   _isEmailFocused = true;
                                 });
                               },
-                              onChanged: (value) {
-                                setState(() {});
-                              },
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your email';
@@ -227,7 +219,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       
                       const SizedBox(height: 20),
                       
-                      // Password
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -328,7 +319,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       
                       const SizedBox(height: 12),
                       
-                      // Forgot Password
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
@@ -350,7 +340,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       
                       const SizedBox(height: 28),
                       
-                      // Sign In Button
                       Container(
                         width: double.infinity,
                         height: 56,
@@ -409,7 +398,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 
                 const SizedBox(height: 28),
                 
-                // Divider
                 Row(
                   children: [
                     const Expanded(
@@ -439,7 +427,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 
                 const SizedBox(height: 20),
                 
-                // Social Buttons
                 Row(
                   children: [
                     Expanded(
@@ -523,7 +510,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 
                 const SizedBox(height: 32),
                 
-                // Sign Up
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -568,8 +554,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           email: _emailController.text.trim(),
           password: _passwordController.text,
         );
+        
         if (mounted) {
-          context.go(RouteNames.home);
+          final user = ref.read(currentUserProvider);
+          switch (user?.role) {
+            case 'exhibitor':
+              context.go(RouteNames.exhibitorDashboard);
+              break;
+            case 'organizer':
+              context.go(RouteNames.organizerDashboard);
+              break;
+            default:
+              context.go(RouteNames.home);
+          }
         }
       } catch (e) {
         if (mounted) {

@@ -43,6 +43,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     required String email,
     required String password,
     required String confirmPassword,
+    String role = 'visitor',
   }) async {
     try {
       state = AuthState.loading();
@@ -51,6 +52,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
         email: email,
         password: password,
         confirmPassword: confirmPassword,
+        role: role,
       );
       state = AuthState.authenticated(user);
     } catch (e) {
@@ -131,4 +133,10 @@ final authLoadingProvider = Provider<bool>((ref) {
 final authErrorProvider = Provider<String?>((ref) {
   final authState = ref.watch(authProvider);
   return authState.error;
+});
+
+// User Role Provider
+final userRoleProvider = Provider<String?>((ref) {
+  final user = ref.watch(currentUserProvider);
+  return user?.role;
 });

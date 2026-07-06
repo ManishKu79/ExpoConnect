@@ -90,14 +90,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 title: 'Help & Support',
                 onTap: () {},
               ),
-              
+
               // Divider
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 8),
                 height: 1,
                 color: AppColors.border,
               ),
-              
+
               // Switch to Exhibitor Mode
               _buildMenuItem(
                 icon: Icons.switch_account_rounded,
@@ -106,7 +106,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   context.go(RouteNames.exhibitorDashboard);
                 },
               ),
-              
+
               // Switch to Organizer Mode
               _buildMenuItem(
                 icon: Icons.switch_account_rounded,
@@ -149,6 +149,23 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   }
 
   Widget _buildProfileHeader(dynamic user) {
+    // Determine role color
+    Color roleColor;
+    String roleDisplay;
+    switch (user.role) {
+      case 'exhibitor':
+        roleColor = AppColors.secondary;
+        roleDisplay = 'EXHIBITOR';
+        break;
+      case 'organizer':
+        roleColor = AppColors.accent;
+        roleDisplay = 'ORGANIZER';
+        break;
+      default:
+        roleColor = AppColors.primaryLight;
+        roleDisplay = 'VISITOR';
+    }
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -163,6 +180,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         children: [
           Row(
             children: [
+              // Avatar
               Container(
                 width: 72,
                 height: 72,
@@ -203,21 +221,22 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       ),
                     ),
                     const SizedBox(height: 4),
+                    // Role Badge with dynamic color
                     Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 10,
                         vertical: 2,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.2),
+                        color: roleColor.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(
-                        (user.role ?? 'VISITOR').toUpperCase(),
-                        style: const TextStyle(
+                        roleDisplay,
+                        style: TextStyle(
                           fontSize: 10,
                           fontWeight: FontWeight.w700,
-                          color: Colors.white,
+                          color: roleColor,
                           letterSpacing: 1,
                         ),
                       ),
@@ -228,6 +247,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             ],
           ),
           const SizedBox(height: 16),
+          // Stats Row
           Row(
             children: [
               Expanded(

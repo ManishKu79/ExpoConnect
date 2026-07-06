@@ -52,7 +52,6 @@ class AuthRepository {
   }) async {
     await Future.delayed(const Duration(seconds: 1));
 
-    // Simulate validation
     if (email.isEmpty || password.isEmpty) {
       throw Exception('Email and password are required');
     }
@@ -61,26 +60,12 @@ class AuthRepository {
       throw Exception('Password must be at least 6 characters');
     }
 
-    // Check if user exists in mock data
     if (_mockUsers.containsKey(email)) {
       _currentUser = _mockUsers[email];
       return _currentUser!;
     }
 
-    // Auto-register for demo purposes (any email works for demo)
-    final newUser = AuthUser(
-      id: 'user_${DateTime.now().millisecondsSinceEpoch}',
-      email: email,
-      name: email.split('@').first,
-      role: 'visitor',
-      isEmailVerified: true,
-      createdAt: DateTime.now(),
-    );
-    
-    _mockUsers[email] = newUser;
-    _currentUser = newUser;
-    
-    return _currentUser!;
+    throw Exception('Invalid email or password');
   }
 
   Future<AuthUser> register({
@@ -88,6 +73,7 @@ class AuthRepository {
     required String email,
     required String password,
     required String confirmPassword,
+    String role = 'visitor',
   }) async {
     await Future.delayed(const Duration(seconds: 1));
 
@@ -115,7 +101,7 @@ class AuthRepository {
       id: 'user_${DateTime.now().millisecondsSinceEpoch}',
       email: email,
       name: name,
-      role: 'visitor',
+      role: role,
       isEmailVerified: false,
       createdAt: DateTime.now(),
     );
@@ -137,12 +123,6 @@ class AuthRepository {
     if (email.isEmpty || !email.contains('@')) {
       throw Exception('Please enter a valid email');
     }
-
-    // Simulate sending reset email
-    if (_mockUsers.containsKey(email)) {
-      // User exists, send reset email
-    }
-    // Always return success for security (don't reveal if email exists)
   }
 
   Future<void> verifyEmail(String email, String code) async {
@@ -166,11 +146,6 @@ class AuthRepository {
     
     if (email.isEmpty || !email.contains('@')) {
       throw Exception('Please enter a valid email');
-    }
-
-    // Simulate resending verification email
-    if (_mockUsers.containsKey(email)) {
-      // Resend verification code
     }
   }
 

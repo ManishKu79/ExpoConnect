@@ -22,11 +22,36 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
   bool _agreeTerms = false;
+  String _selectedRole = 'visitor';
   
   bool _isNameFocused = false;
   bool _isEmailFocused = false;
   bool _isPasswordFocused = false;
   bool _isConfirmPasswordFocused = false;
+
+  final List<Map<String, dynamic>> _roles = [
+    {
+      'value': 'visitor',
+      'label': 'Visitor',
+      'icon': Icons.person_rounded,
+      'description': 'Attend expos, network, and explore',
+      'color': AppColors.primary,
+    },
+    {
+      'value': 'exhibitor',
+      'label': 'Exhibitor',
+      'icon': Icons.storefront_rounded,
+      'description': 'Showcase your products and generate leads',
+      'color': AppColors.secondary,
+    },
+    {
+      'value': 'organizer',
+      'label': 'Organizer',
+      'icon': Icons.event_rounded,
+      'description': 'Organize expos and manage attendees',
+      'color': AppColors.accent,
+    },
+  ];
 
   @override
   void dispose() {
@@ -61,7 +86,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
               children: [
                 const SizedBox(height: 20),
                 
-                // Back Button
                 GestureDetector(
                   onTap: () => context.pop(),
                   child: Container(
@@ -88,19 +112,18 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 
                 const SizedBox(height: 40),
                 
-                // Hero Section
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Get Started',
+                      'Create Account',
                       style: AppTypography.heroMedium.copyWith(
                         color: AppColors.primary,
                       ),
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Join the premier networking platform',
+                      'Choose your role and join the network',
                       style: AppTypography.bodyLarge.copyWith(
                         color: AppColors.textSecondary,
                         letterSpacing: 0.3,
@@ -111,13 +134,111 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 
                 const SizedBox(height: 36),
                 
-                // Form
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'SELECT YOUR ROLE',
+                      style: AppTypography.labelSmall.copyWith(
+                        color: AppColors.textSecondary,
+                        letterSpacing: 1.2,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: _roles.map((role) {
+                        final isSelected = _selectedRole == role['value'];
+                        return Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _selectedRole = role['value'];
+                              });
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 8),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 12,
+                              ),
+                              decoration: BoxDecoration(
+                                color: isSelected 
+                                    ? (role['color'] as Color).withOpacity(0.1)
+                                    : Colors.white,
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: isSelected 
+                                      ? role['color'] as Color
+                                      : AppColors.border,
+                                  width: isSelected ? 2 : 1,
+                                ),
+                                boxShadow: isSelected
+                                    ? [
+                                        BoxShadow(
+                                          color: (role['color'] as Color).withOpacity(0.2),
+                                          blurRadius: 12,
+                                          spreadRadius: 4,
+                                        ),
+                                      ]
+                                    : [
+                                        BoxShadow(
+                                          color: AppColors.shadowLight,
+                                          blurRadius: 8,
+                                          offset: const Offset(0, 2),
+                                        ),
+                                      ],
+                              ),
+                              child: Column(
+                                children: [
+                                  Icon(
+                                    role['icon'],
+                                    color: isSelected 
+                                        ? role['color'] as Color
+                                        : AppColors.textTertiary,
+                                    size: 28,
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    role['label'],
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: isSelected 
+                                          ? FontWeight.w700 
+                                          : FontWeight.w500,
+                                      color: isSelected 
+                                          ? role['color'] as Color
+                                          : AppColors.textSecondary,
+                                    ),
+                                  ),
+                                  Text(
+                                    role['description'],
+                                    style: TextStyle(
+                                      fontSize: 9,
+                                      color: isSelected 
+                                          ? (role['color'] as Color)
+                                          : AppColors.textTertiary,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
+                
+                const SizedBox(height: 28),
+                
                 Form(
                   key: _formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Name
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -187,9 +308,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                                   _isNameFocused = true;
                                 });
                               },
-                              onChanged: (value) {
-                                setState(() {});
-                              },
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your name';
@@ -203,7 +321,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       
                       const SizedBox(height: 20),
                       
-                      // Email
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -274,9 +391,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                                   _isEmailFocused = true;
                                 });
                               },
-                              onChanged: (value) {
-                                setState(() {});
-                              },
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your email';
@@ -293,7 +407,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       
                       const SizedBox(height: 20),
                       
-                      // Password
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -378,9 +491,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                                   _isPasswordFocused = true;
                                 });
                               },
-                              onChanged: (value) {
-                                setState(() {});
-                              },
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your password';
@@ -397,7 +507,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       
                       const SizedBox(height: 20),
                       
-                      // Confirm Password
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -483,9 +592,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                                   _isConfirmPasswordFocused = true;
                                 });
                               },
-                              onChanged: (value) {
-                                setState(() {});
-                              },
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please confirm your password';
@@ -502,7 +608,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       
                       const SizedBox(height: 24),
                       
-                      // Terms
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -562,7 +667,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       
                       const SizedBox(height: 32),
                       
-                      // Create Account Button
                       Container(
                         width: double.infinity,
                         height: 56,
@@ -621,7 +725,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 
                 const SizedBox(height: 28),
                 
-                // Sign In
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -685,9 +788,19 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
           email: _emailController.text.trim(),
           password: _passwordController.text,
           confirmPassword: _confirmPasswordController.text,
+          role: _selectedRole,
         );
         if (mounted) {
-          context.go(RouteNames.home);
+          switch (_selectedRole) {
+            case 'exhibitor':
+              context.go(RouteNames.exhibitorDashboard);
+              break;
+            case 'organizer':
+              context.go(RouteNames.organizerDashboard);
+              break;
+            default:
+              context.go(RouteNames.home);
+          }
         }
       } catch (e) {
         if (mounted) {

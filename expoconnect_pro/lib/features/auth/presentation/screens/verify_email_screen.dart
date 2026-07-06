@@ -32,7 +32,6 @@ class _VerifyEmailScreenState extends ConsumerState<VerifyEmailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authNotifier = ref.read(authProvider.notifier);
     final authState = ref.watch(authProvider);
 
     return Scaffold(
@@ -55,7 +54,6 @@ class _VerifyEmailScreenState extends ConsumerState<VerifyEmailScreen> {
               children: [
                 const SizedBox(height: 20),
                 
-                // Back Button
                 GestureDetector(
                   onTap: () => context.pop(),
                   child: Container(
@@ -82,7 +80,6 @@ class _VerifyEmailScreenState extends ConsumerState<VerifyEmailScreen> {
                 
                 const SizedBox(height: 40),
                 
-                // Header
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -105,12 +102,10 @@ class _VerifyEmailScreenState extends ConsumerState<VerifyEmailScreen> {
                 
                 const SizedBox(height: 40),
                 
-                // Form
                 Form(
                   key: _formKey,
                   child: Column(
                     children: [
-                      // Verification Code
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -190,12 +185,11 @@ class _VerifyEmailScreenState extends ConsumerState<VerifyEmailScreen> {
                       
                       const SizedBox(height: 32),
                       
-                      // Verify Button
                       SizedBox(
                         width: double.infinity,
                         height: 56,
                         child: ElevatedButton(
-                          onPressed: _isLoading ? null : () => _handleVerify(authNotifier),
+                          onPressed: _isLoading ? null : _handleVerify,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.primary,
                             shape: RoundedRectangleBorder(
@@ -223,7 +217,6 @@ class _VerifyEmailScreenState extends ConsumerState<VerifyEmailScreen> {
                       
                       const SizedBox(height: 16),
                       
-                      // Resend
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -235,7 +228,7 @@ class _VerifyEmailScreenState extends ConsumerState<VerifyEmailScreen> {
                           ),
                           const SizedBox(width: 6),
                           TextButton(
-                            onPressed: _isResending ? null : () => _resendCode(authNotifier),
+                            onPressed: _isResending ? null : _resendCode,
                             style: TextButton.styleFrom(
                               padding: const EdgeInsets.symmetric(horizontal: 4),
                             ),
@@ -271,11 +264,11 @@ class _VerifyEmailScreenState extends ConsumerState<VerifyEmailScreen> {
     );
   }
 
-  void _handleVerify(AuthNotifier authNotifier) async {
+  void _handleVerify() async {
     if (_formKey.currentState!.validate()) {
       setState(() => _isLoading = true);
       try {
-        await authNotifier.verifyEmail(
+        await ref.read(authProvider.notifier).verifyEmail(
           widget.email,
           _codeController.text.trim(),
         );
@@ -304,10 +297,10 @@ class _VerifyEmailScreenState extends ConsumerState<VerifyEmailScreen> {
     }
   }
 
-  void _resendCode(AuthNotifier authNotifier) async {
+  void _resendCode() async {
     setState(() => _isResending = true);
     try {
-      await authNotifier.forgotPassword(widget.email);
+      await ref.read(authProvider.notifier).forgotPassword(widget.email);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

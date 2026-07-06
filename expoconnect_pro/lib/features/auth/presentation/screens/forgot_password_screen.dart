@@ -16,7 +16,6 @@ class ForgotPasswordScreen extends ConsumerStatefulWidget {
 class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
-  bool _isLoading = false;
   bool _isSuccess = false;
 
   @override
@@ -27,15 +26,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authNotifier = ref.read(authProvider.notifier);
     final authState = ref.watch(authProvider);
-
-    // Handle loading state
-    if (authState.isLoading) {
-      _isLoading = true;
-    } else {
-      _isLoading = false;
-    }
 
     return Scaffold(
       body: Container(
@@ -57,7 +48,6 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
               children: [
                 const SizedBox(height: 20),
                 
-                // Back Button
                 GestureDetector(
                   onTap: () => context.pop(),
                   child: Container(
@@ -84,7 +74,6 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                 
                 const SizedBox(height: 40),
                 
-                // Header
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -110,7 +99,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                 if (_isSuccess)
                   _buildSuccessMessage()
                 else
-                  _buildForm(authNotifier),
+                  _buildForm(),
                 
                 const SizedBox(height: 32),
               ],
@@ -179,12 +168,11 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     );
   }
 
-  Widget _buildForm(AuthNotifier authNotifier) {
+  Widget _buildForm() {
     return Form(
       key: _formKey,
       child: Column(
         children: [
-          // Email
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -260,12 +248,11 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
           
           const SizedBox(height: 32),
           
-          // Send Reset Link Button
           SizedBox(
             width: double.infinity,
             height: 56,
             child: ElevatedButton(
-              onPressed: _isLoading ? null : () => _handleForgotPassword(authNotifier),
+              onPressed: _handleForgotPassword,
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primary,
                 shape: RoundedRectangleBorder(
@@ -273,27 +260,17 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                 ),
                 elevation: 0,
               ),
-              child: _isLoading
-                  ? const SizedBox(
-                      height: 24,
-                      width: 24,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2.5,
-                        color: Colors.white,
-                      ),
-                    )
-                  : Text(
-                      'Send Reset Link',
-                      style: AppTypography.buttonLarge.copyWith(
-                        color: Colors.white,
-                      ),
-                    ),
+              child: Text(
+                'Send Reset Link',
+                style: AppTypography.buttonLarge.copyWith(
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
           
           const SizedBox(height: 16),
           
-          // Back to sign in
           Center(
             child: TextButton(
               onPressed: () {
@@ -313,12 +290,15 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     );
   }
 
-  void _handleForgotPassword(AuthNotifier authNotifier) async {
+  void _handleForgotPassword() async {
     if (_formKey.currentState!.validate()) {
       try {
-        setState(() => _isLoading = true);
-        await authNotifier.forgotPassword(_emailController.text.trim());
-        setState(() => _isSuccess = true);
+        await ref.read(authProvider.notifier).forgotPassword(
+          _emailController.text.trim(),
+        );
+        setState(() {
+          _isSuccess = true;
+        });
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -331,8 +311,6 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
             ),
           ),
         );
-      } finally {
-        setState(() => _isLoading = false);
       }
     }
   }

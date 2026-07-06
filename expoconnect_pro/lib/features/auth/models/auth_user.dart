@@ -5,7 +5,7 @@ class AuthUser extends Equatable {
   final String email;
   final String name;
   final String? profileImage;
-  final String role; // 'visitor', 'exhibitor', 'organizer'
+  final String role;
   final bool isEmailVerified;
   final DateTime createdAt;
 
