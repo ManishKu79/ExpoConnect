@@ -195,25 +195,39 @@ class _OrganizerDashboardScreenState extends ConsumerState<OrganizerDashboardScr
                 _buildQuickAction(
                   icon: Icons.add_rounded,
                   label: 'Create Expo',
-                  onTap: () {},
+                  onTap: () {
+                    // Show a snackbar or navigate to create expo
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Create Expo feature coming soon!'),
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  },
                 ),
                 const SizedBox(width: 12),
                 _buildQuickAction(
                   icon: Icons.people_rounded,
                   label: 'Visitors',
-                  onTap: () {},
+                  onTap: () {
+                    context.go(RouteNames.visitorManagement);
+                  },
                 ),
                 const SizedBox(width: 12),
                 _buildQuickAction(
                   icon: Icons.storefront_rounded,
                   label: 'Stalls',
-                  onTap: () {},
+                  onTap: () {
+                    context.go(RouteNames.stallAllocation);
+                  },
                 ),
                 const SizedBox(width: 12),
                 _buildQuickAction(
                   icon: Icons.analytics_rounded,
                   label: 'Analytics',
-                  onTap: () {},
+                  onTap: () {
+                    context.go(RouteNames.liveAnalytics);
+                  },
                 ),
               ],
             ),
@@ -224,7 +238,37 @@ class _OrganizerDashboardScreenState extends ConsumerState<OrganizerDashboardScr
             expos.when(
               data: (expos) {
                 if (expos.isEmpty) {
-                  return const SizedBox();
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 20),
+                      Center(
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.event_rounded,
+                              size: 64,
+                              color: AppColors.textTertiary,
+                            ),
+                            const SizedBox(height: 12),
+                            Text(
+                              'No Expos Created Yet',
+                              style: AppTypography.headline4.copyWith(
+                                color: AppColors.textSecondary,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              'Tap "Create Expo" to get started',
+                              style: AppTypography.bodyMedium.copyWith(
+                                color: AppColors.textTertiary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
                 }
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -237,7 +281,9 @@ class _OrganizerDashboardScreenState extends ConsumerState<OrganizerDashboardScr
                           style: AppTypography.headline4,
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            context.go(RouteNames.expoManagement);
+                          },
                           child: Text(
                             'See All',
                             style: AppTypography.labelMedium.copyWith(
@@ -256,74 +302,85 @@ class _OrganizerDashboardScreenState extends ConsumerState<OrganizerDashboardScr
                       separatorBuilder: (_, __) => const SizedBox(height: 8),
                       itemBuilder: (context, index) {
                         final expo = expos[index];
-                        return Container(
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(12),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.shadowLight,
-                                blurRadius: 8,
-                                offset: const Offset(0, 2),
+                        return GestureDetector(
+                          onTap: () {
+                            // Navigate to expo details
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Opening ${expo.title}...'),
+                                duration: const Duration(seconds: 2),
                               ),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 50,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  color: AppColors.surfaceAlt,
-                                  borderRadius: BorderRadius.circular(8),
-                                  image: expo.imageUrl != null
-                                      ? DecorationImage(
-                                          image: NetworkImage(expo.imageUrl!),
-                                          fit: BoxFit.cover,
-                                        )
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.shadowLight,
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.surfaceAlt,
+                                    borderRadius: BorderRadius.circular(8),
+                                    image: expo.imageUrl != null
+                                        ? DecorationImage(
+                                            image: NetworkImage(expo.imageUrl!),
+                                            fit: BoxFit.cover,
+                                          )
+                                        : null,
+                                  ),
+                                  child: expo.imageUrl == null
+                                      ? Icon(Icons.event, color: AppColors.textTertiary, size: 24)
                                       : null,
                                 ),
-                                child: expo.imageUrl == null
-                                    ? Icon(Icons.event, color: AppColors.textTertiary, size: 24)
-                                    : null,
-                              ),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      expo.title,
-                                      style: AppTypography.bodyMedium.copyWith(
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColors.textPrimary,
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        expo.title,
+                                        style: AppTypography.bodyMedium.copyWith(
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.textPrimary,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      '${expo.visitorCount} visitors • ${expo.exhibitorCount} exhibitors',
-                                      style: AppTypography.bodySmall.copyWith(
-                                        color: AppColors.textSecondary,
+                                      Text(
+                                        '${expo.visitorCount} visitors • ${expo.exhibitorCount} exhibitors',
+                                        style: AppTypography.bodySmall.copyWith(
+                                          color: AppColors.textSecondary,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                decoration: BoxDecoration(
-                                  color: _getStatusColor(expo.status).withOpacity(0.1),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Text(
-                                  expo.status.toString().split('.').last,
-                                  style: AppTypography.labelSmall.copyWith(
-                                    color: _getStatusColor(expo.status),
-                                    fontWeight: FontWeight.w600,
+                                    ],
                                   ),
                                 ),
-                              ),
-                            ],
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    color: _getStatusColor(expo.status).withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Text(
+                                    expo.status.toString().split('.').last,
+                                    style: AppTypography.labelSmall.copyWith(
+                                      color: _getStatusColor(expo.status),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       },
