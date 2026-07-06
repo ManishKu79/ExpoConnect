@@ -5,6 +5,7 @@ import '../../../../providers/organizer_providers.dart';
 import '../../../../theme/colors.dart';
 import '../../../../theme/typography.dart';
 import '../../../../routes/route_names.dart';
+import '../../models/organizer_expo.dart'; // ADD THIS IMPORT
 
 class OrganizerDashboardScreen extends ConsumerStatefulWidget {
   const OrganizerDashboardScreen({super.key});
@@ -273,4 +274,188 @@ class _OrganizerDashboardScreenState extends ConsumerState<OrganizerDashboardScr
                             boxShadow: [
                               BoxShadow(
                                 color: AppColors.shadowLight,
-                                blurRadius: 8
+                                blurRadius: 8,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: AppColors.surfaceAlt,
+                                  borderRadius: BorderRadius.circular(8),
+                                  image: expo.imageUrl != null
+                                      ? DecorationImage(
+                                          image: NetworkImage(expo.imageUrl!),
+                                          fit: BoxFit.cover,
+                                        )
+                                      : null,
+                                ),
+                                child: expo.imageUrl == null
+                                    ? Icon(Icons.event, color: AppColors.textTertiary, size: 24)
+                                    : null,
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      expo.title,
+                                      style: AppTypography.bodyMedium.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColors.textPrimary,
+                                      ),
+                                    ),
+                                    Text(
+                                      '${expo.visitorCount} visitors • ${expo.exhibitorCount} exhibitors',
+                                      style: AppTypography.bodySmall.copyWith(
+                                        color: AppColors.textSecondary,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: _getStatusColor(expo.status).withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Text(
+                                  expo.status.toString().split('.').last,
+                                  style: AppTypography.labelSmall.copyWith(
+                                    color: _getStatusColor(expo.status),
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                );
+              },
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (error, stack) => const SizedBox(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStatCard({
+    required String title,
+    required String value,
+    required IconData icon,
+    required Color color,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.shadowLight,
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: color.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Icon(icon, color: color, size: 18),
+              ),
+              const Spacer(),
+              Text(
+                value,
+                style: AppTypography.headline4.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text(
+            title,
+            style: AppTypography.labelSmall.copyWith(
+              color: AppColors.textTertiary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildQuickAction({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.shadowLight,
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Column(
+            children: [
+              Icon(icon, color: AppColors.primary, size: 28),
+              const SizedBox(height: 4),
+              Text(
+                label,
+                style: AppTypography.labelSmall.copyWith(
+                  color: AppColors.textSecondary,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Color _getStatusColor(ExpoStatus status) {
+    switch (status) {
+      case ExpoStatus.draft:
+        return AppColors.textTertiary;
+      case ExpoStatus.published:
+        return AppColors.info;
+      case ExpoStatus.ongoing:
+        return AppColors.secondary;
+      case ExpoStatus.completed:
+        return AppColors.success;
+      case ExpoStatus.cancelled:
+        return AppColors.error;
+      default:
+        return AppColors.textTertiary;
+    }
+  }
+}

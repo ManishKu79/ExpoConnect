@@ -18,7 +18,7 @@ import '../features/visitor/presentation/screens/chat_screen.dart';
 import '../features/exhibitor/presentation/screens/dashboard_screen.dart';
 import '../features/exhibitor/presentation/screens/lead_dashboard_screen.dart';
 import 'route_names.dart';
-
+import '../features/organizer/presentation/screens/organizer_dashboard_screen.dart';
 final appRouter = GoRouter(
   initialLocation: RouteNames.splash,
   routes: [
@@ -116,5 +116,30 @@ final appRouter = GoRouter(
       name: 'lead-dashboard',
       builder: (context, state) => const LeadDashboardScreen(),
     ),
+    GoRoute(
+  path: RouteNames.organizerDashboard,
+  name: 'organizer-dashboard',
+  builder: (context, state) => const OrganizerDashboardScreen(),
+),
+GoRoute(
+  path: RouteNames.visitorManagement,
+  name: 'visitor-management',
+  builder: (context, state) => const Placeholder(), // To be implemented
+),
+GoRoute(
+  path: RouteNames.stallAllocation,
+  name: 'stall-allocation',
+  builder: (context, state) => const Placeholder(), // To be implemented
+),
+GoRoute(
+  path: RouteNames.liveAnalytics,
+  name: 'live-analytics',
+  builder: (context, state) => const Placeholder(), // To be implemented
+),
+GoRoute(
+  path: RouteNames.expoManagement,
+  name: 'expo-management',
+  builder: (context, state) => const Placeholder(), // To be implemented
+),
   ],
 );
