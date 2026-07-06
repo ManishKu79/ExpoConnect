@@ -90,6 +90,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 title: 'Help & Support',
                 onTap: () {},
               ),
+              // Switch to Exhibitor Mode
               _buildMenuItem(
                 icon: Icons.switch_account_rounded,
                 title: 'Switch to Exhibitor Mode',
@@ -145,7 +146,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         children: [
           Row(
             children: [
-              // Avatar
               Container(
                 width: 72,
                 height: 72,
@@ -211,7 +211,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             ],
           ),
           const SizedBox(height: 16),
-          // Stats Row
           Row(
             children: [
               Expanded(

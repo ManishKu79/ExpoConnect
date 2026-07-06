@@ -7,7 +7,7 @@ class RouteNames {
   static const String forgotPassword = '/forgot-password';
   static const String verifyEmail = '/verify-email';
 
-  // Main
+  // Visitor
   static const String home = '/home';
   static const String expoListing = '/expo-listing';
   static const String expoDetails = '/expo-details';
@@ -25,6 +25,7 @@ class RouteNames {
   static const String leadDashboard = '/exhibitor/leads';
   static const String qrScanner = '/exhibitor/qr-scanner';
   static const String analytics = '/exhibitor/analytics';
+  static const String reports = '/exhibitor/reports';
 
   // Organizer
   static const String organizerDashboard = '/organizer/dashboard';

@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Primary - Deep Indigo (Trust, Professionalism, Luxury)
+  // Primary - Deep Indigo
   static const Color primary = Color(0xFF1A0F3A);
   static const Color primaryLight = Color(0xFF3A2A6A);
   static const Color primaryDark = Color(0xFF0A0520);
   
-  // Secondary - Soft Gold (Premium, Warmth, Value)
+  // Secondary - Soft Gold
   static const Color secondary = Color(0xFFE8C97A);
   static const Color secondaryLight = Color(0xFFF5E6C8);
   static const Color secondaryDark = Color(0xFFC4A45A);
   
-  // Accent - Vibrant Coral (Energy, Action, Excitement)
+  // Accent - Coral
   static const Color accent = Color(0xFFFF6B6B);
   static const Color accentLight = Color(0xFFFFA8A8);
   static const Color accentDark = Color(0xFFE53E3E);
   
-  // Tertiary - Teal (Modern, Trust, Calm)
+  // Tertiary - Teal
   static const Color tertiary = Color(0xFF2EC4B6);
   static const Color tertiaryLight = Color(0xFF7DE2D6);
   
