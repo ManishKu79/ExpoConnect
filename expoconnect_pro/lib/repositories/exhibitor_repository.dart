@@ -158,7 +158,7 @@ class ExhibitorRepository {
       DailyStat(date: DateTime.now().subtract(const Duration(days: 3)), visitors: 20, leads: 4),
       DailyStat(date: DateTime.now().subtract(const Duration(days: 2)), visitors: 35, leads: 6),
       DailyStat(date: DateTime.now().subtract(const Duration(days: 1)), visitors: 42, leads: 8),
-      DailyStat(date: DateTime.now()), visitors: 31, leads: 5,
+      DailyStat(date: DateTime.now(), visitors: 31, leads: 5),
     ],
   );
 

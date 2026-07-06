@@ -13,7 +13,7 @@ class VisitorRepository {
   
   VisitorRepository._internal();
 
-  // Mock Expo Data
+  // Mock Expo Data - Updated with all exhibitors
   final List<Expo> _mockExpos = [
     Expo(
       id: 'expo_001',
@@ -83,6 +83,14 @@ class VisitorRepository {
           categories: ['Blockchain'],
           boothNumber: 'B-103',
         ),
+        Exhibitor(
+          id: 'exh_004',
+          name: 'CyberSecure Inc.',
+          logo: 'https://picsum.photos/seed/cyber1/100/100',
+          description: 'Enterprise cybersecurity solutions',
+          categories: ['Security', 'Cloud'],
+          boothNumber: 'B-104',
+        ),
       ],
     ),
     Expo(
@@ -106,8 +114,39 @@ class VisitorRepository {
           speaker: 'James Anderson',
           location: 'Main Hall',
         ),
+        ExpoSchedule(
+          time: '11:30 - 13:00',
+          title: 'Investment Strategies Panel',
+          description: 'Top investors share insights on funding and growth.',
+          speaker: 'Priya Patel',
+          location: 'Conference Room A',
+        ),
+        ExpoSchedule(
+          time: '14:00 - 16:00',
+          title: 'Networking Session',
+          description: 'Connect with fellow entrepreneurs and investors.',
+          speaker: 'All Attendees',
+          location: 'Exhibition Hall',
+        ),
       ],
-      exhibitors: [],
+      exhibitors: [
+        Exhibitor(
+          id: 'exh_005',
+          name: 'Growth Capital Partners',
+          logo: 'https://picsum.photos/seed/growth1/100/100',
+          description: 'Venture capital for early-stage startups',
+          categories: ['Investment', 'Finance'],
+          boothNumber: 'C-201',
+        ),
+        Exhibitor(
+          id: 'exh_006',
+          name: 'BizTech Solutions',
+          logo: 'https://picsum.photos/seed/biztech1/100/100',
+          description: 'Business automation and CRM solutions',
+          categories: ['Business', 'Technology'],
+          boothNumber: 'C-202',
+        ),
+      ],
     ),
     Expo(
       id: 'expo_003',
@@ -122,8 +161,78 @@ class VisitorRepository {
       rating: 4.9,
       isFeatured: true,
       organizer: 'Data Science Academy',
-      schedule: [],
-      exhibitors: [],
+      schedule: [
+        ExpoSchedule(
+          time: '09:00 - 10:30',
+          title: 'Keynote: The Future of AI',
+          description: 'Industry leaders discuss the next frontier of artificial intelligence.',
+          speaker: 'Dr. Andrew Ng',
+          location: 'Grand Ballroom',
+        ),
+        ExpoSchedule(
+          time: '11:00 - 12:30',
+          title: 'Deep Learning Workshop',
+          description: 'Hands-on workshop on advanced deep learning techniques.',
+          speaker: 'Dr. Fei-Fei Li',
+          location: 'Workshop Room 1',
+        ),
+        ExpoSchedule(
+          time: '14:00 - 15:30',
+          title: 'Data Science in Production',
+          description: 'Best practices for deploying ML models at scale.',
+          speaker: 'Cassie Kozyrkov',
+          location: 'Conference Room B',
+        ),
+        ExpoSchedule(
+          time: '16:00 - 18:00',
+          title: 'AI Networking Reception',
+          description: 'Connect with AI researchers, engineers, and enthusiasts.',
+          speaker: 'All Speakers',
+          location: 'Exhibition Hall',
+        ),
+      ],
+      exhibitors: [
+        Exhibitor(
+          id: 'exh_007',
+          name: 'DeepMind Technologies',
+          logo: 'https://picsum.photos/seed/deepmind1/100/100',
+          description: 'Advanced AI research and development',
+          categories: ['AI', 'Machine Learning'],
+          boothNumber: 'D-301',
+        ),
+        Exhibitor(
+          id: 'exh_008',
+          name: 'DataRobot Inc.',
+          logo: 'https://picsum.photos/seed/datarobot1/100/100',
+          description: 'Automated machine learning platform',
+          categories: ['Data Science', 'AI'],
+          boothNumber: 'D-302',
+        ),
+        Exhibitor(
+          id: 'exh_009',
+          name: 'TensorFlow Labs',
+          logo: 'https://picsum.photos/seed/tensor1/100/100',
+          description: 'Open-source ML framework solutions',
+          categories: ['Machine Learning', 'AI'],
+          boothNumber: 'D-303',
+        ),
+        Exhibitor(
+          id: 'exh_010',
+          name: 'Kaggle Analytics',
+          logo: 'https://picsum.photos/seed/kaggle1/100/100',
+          description: 'Data science competitions and community',
+          categories: ['Data Science', 'AI'],
+          boothNumber: 'D-304',
+        ),
+        Exhibitor(
+          id: 'exh_011',
+          name: 'Hugging Face',
+          logo: 'https://picsum.photos/seed/hugging1/100/100',
+          description: 'NLP models and AI community platform',
+          categories: ['AI', 'NLP'],
+          boothNumber: 'D-305',
+        ),
+      ],
     ),
   ];
 

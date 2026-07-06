@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import '../../../../providers/visitor_providers.dart';
 import '../../../../theme/colors.dart';
 import '../../../../theme/typography.dart';
-import '../../../../theme/spacing.dart';
 import '../../../../routes/route_names.dart';
 import '../../models/expo.dart';
 
@@ -23,6 +22,7 @@ class ExpoDetailsScreen extends ConsumerStatefulWidget {
 class _ExpoDetailsScreenState extends ConsumerState<ExpoDetailsScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  int _selectedTab = 0;
 
   final List<String> _tabs = ['Overview', 'Schedule', 'Exhibitors'];
 
@@ -30,6 +30,11 @@ class _ExpoDetailsScreenState extends ConsumerState<ExpoDetailsScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(() {
+      setState(() {
+        _selectedTab = _tabController.index;
+      });
+    });
   }
 
   @override

@@ -90,7 +90,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 title: 'Help & Support',
                 onTap: () {},
               ),
-              // Switch to Exhibitor Mode
               _buildMenuItem(
                 icon: Icons.switch_account_rounded,
                 title: 'Switch to Exhibitor Mode',

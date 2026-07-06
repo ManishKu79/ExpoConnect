@@ -4,9 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../providers/visitor_providers.dart';
 import '../../../../theme/colors.dart';
 import '../../../../theme/typography.dart';
-import '../../../../theme/spacing.dart';
 import '../widgets/expo_card.dart';
-import '../widgets/section_header.dart';
 import '../../../../routes/route_names.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -158,19 +156,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               const SizedBox(height: 32),
               
               // Featured Events
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     '🔥 Featured Events',
                     style: AppTypography.headline3,
                   ),
-                  Text(
-                    'See All',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.secondary,
+                  GestureDetector(
+                    onTap: () {
+                      context.go(RouteNames.expoListing);
+                    },
+                    child: Text(
+                      'See All',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.secondary,
+                      ),
                     ),
                   ),
                 ],
@@ -240,19 +243,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               const SizedBox(height: 32),
               
               // Upcoming Events
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     '📅 Upcoming Events',
                     style: AppTypography.headline3,
                   ),
-                  Text(
-                    'See All',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.secondary,
+                  GestureDetector(
+                    onTap: () {
+                      context.go(RouteNames.expoListing);
+                    },
+                    child: Text(
+                      'See All',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.secondary,
+                      ),
                     ),
                   ),
                 ],
@@ -323,75 +331,72 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: _buildBottomNavigationBar(),
-    );
-  }
-
-  Widget _buildBottomNavigationBar() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.shadowLight,
-            blurRadius: 20,
-            offset: const Offset(0, -8),
-          ),
-        ],
-      ),
-      child: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-          switch (index) {
-            case 0:
-              break;
-            case 1:
-              context.go(RouteNames.expoListing);
-              break;
-            case 2:
-              context.go(RouteNames.networking);
-              break;
-            case 3:
-              context.go(RouteNames.profile);
-              break;
-          }
-        },
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: AppColors.secondary,
-        unselectedItemColor: AppColors.textTertiary,
-        selectedLabelStyle: const TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.shadowLight,
+              blurRadius: 20,
+              offset: const Offset(0, -8),
+            ),
+          ],
         ),
-        unselectedLabelStyle: const TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
+        child: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+            switch (index) {
+              case 0:
+                // Already on home
+                break;
+              case 1:
+                context.go(RouteNames.expoListing);
+                break;
+              case 2:
+                context.go(RouteNames.networking);
+                break;
+              case 3:
+                context.go(RouteNames.profile);
+                break;
+            }
+          },
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: AppColors.secondary,
+          unselectedItemColor: AppColors.textTertiary,
+          selectedLabelStyle: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+          ),
+          unselectedLabelStyle: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+          ),
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_rounded),
+              activeIcon: Icon(Icons.home_rounded),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.explore_rounded),
+              activeIcon: Icon(Icons.explore_rounded),
+              label: 'Explore',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.people_rounded),
+              activeIcon: Icon(Icons.people_rounded),
+              label: 'Network',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_rounded),
+              activeIcon: Icon(Icons.person_rounded),
+              label: 'Profile',
+            ),
+          ],
         ),
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
-            activeIcon: Icon(Icons.home_rounded),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.explore_rounded),
-            activeIcon: Icon(Icons.explore_rounded),
-            label: 'Explore',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.people_rounded),
-            activeIcon: Icon(Icons.people_rounded),
-            label: 'Network',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_rounded),
-            activeIcon: Icon(Icons.person_rounded),
-            label: 'Profile',
-          ),
-        ],
       ),
     );
   }
