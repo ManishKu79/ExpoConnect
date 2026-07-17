@@ -13,7 +13,7 @@ class AuthRepository {
 
   AuthUser? _currentUser;
 
-  // Mock users for testing
+  
   final Map<String, AuthUser> _mockUsers = {
     'demo@expoconnect.com': AuthUser(
       id: 'user_001',
