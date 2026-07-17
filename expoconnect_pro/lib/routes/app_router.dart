@@ -27,7 +27,7 @@ import 'route_names.dart';
 final appRouter = GoRouter(
   initialLocation: RouteNames.splash,
   routes: [
-    // Auth Routes
+    
     GoRoute(
       path: RouteNames.splash,
       name: 'splash',
