@@ -15,7 +15,7 @@ class ExhibitorRepository {
   
   ExhibitorRepository._internal();
 
-  // Mock Exhibitor Profile
+  
   final ExhibitorProfile _mockProfile = ExhibitorProfile(
     id: 'exhibitor_001',
     companyName: 'Tech Innovations Inc.',
