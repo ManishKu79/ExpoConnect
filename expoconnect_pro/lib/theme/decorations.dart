@@ -11,7 +11,7 @@ class AppDecorations {
   static const double radiusXXL = 20.0;
   static const double radiusFull = 100.0;
   
-  // Shadow configurations
+  
   static List<BoxShadow> shadowNone = [];
   
   static List<BoxShadow> shadowSM = [
