@@ -83,7 +83,7 @@ class AppDecorations {
     ),
   ];
   
-  // Common decorations
+  
   static BoxDecoration cardDecorationLight = BoxDecoration(
     color: AppColors.surface,
     borderRadius: BorderRadius.circular(radiusLG),
