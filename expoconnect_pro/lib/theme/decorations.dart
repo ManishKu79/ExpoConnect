@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 
 class AppDecorations {
-  // Border radius - Organic corners
+  
   static const double radiusNone = 0;
   static const double radiusSM = 4.0;
   static const double radiusMD = 8.0;
